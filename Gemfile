@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.3.0"
 
 # Not sure when or if my app will need the commented out gems
 
@@ -42,4 +43,5 @@ group :production do
   # logs should be directed to stdout and dev/prod parity while delivering assets
   # Enables serving assets in production and setting your logger to standard out
   gem 'rails_12factor'
+  gem 'puma'
 end
