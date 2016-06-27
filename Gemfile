@@ -4,6 +4,7 @@ ruby "2.3.0"
 # Not sure when or if my app will need the commented out gems
 
 gem 'rails', '4.2.6'
+gem 'bcrypt'
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 5.0'
 # Removes whitespaces to serve files quicker
