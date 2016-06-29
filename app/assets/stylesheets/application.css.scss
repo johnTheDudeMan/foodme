@@ -5,10 +5,21 @@
 
 $gray-medium-light: #eaeaea;
 
+@mixin box-sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
 /* universal */
 
 body {
   padding-top: 60px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .center {
@@ -27,6 +38,14 @@ body {
 	ul {
 		padding-left: 15px;
 	}
+}
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 70%;
+  margin-top: 45px;
+  @include box-sizing;
 }
 
 /* header */
@@ -79,3 +98,18 @@ footer {
   }
 }
 
+
+/* forms */
+input {
+  margin-bottom: 15px;
+  @include box-sizing;
+}
+
+.btn {
+  width: 25%;
+}
+
+#error_message {
+  color: red;
+  margin-bottom: 30px;
+}

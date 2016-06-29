@@ -10,7 +10,7 @@ class SityLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", contact_path, count: 2
     assert_select "a[href=?]", help_path
     assert_select "a[href=?]", "https://github.com/johnTheDudeMan/foodme"
-    #assert_select "a[href=?", signup_path
+    assert_select "a[href=?]", signup_path
   end
 
   # Layout links for logged in users will go here

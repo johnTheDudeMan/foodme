@@ -1,0 +1,5 @@
+baci:
+  name: Baci
+  email: meow@purr.com
+  password_digest: "foobar"
+  admin: true

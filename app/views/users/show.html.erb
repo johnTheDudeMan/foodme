@@ -1,2 +1,6 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<% provide(:title, @user.name) %>
+<div class="container">
+	<h1><%= @user.name %></h1>
+	<p><strong>email: </strong> <%= @user.email %></p>
+	<p><strong>created: </strong> <%= time_ago_in_words(@user.created_at) %></p>
+</div>
