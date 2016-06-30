@@ -9,5 +9,15 @@ class ActiveSupport::TestCase
   fixtures :all
   include ApplicationHelper
 
-  # Add more helper methods to be used by all tests here...
+  def log_in_as(user, options={})
+  	password = options[:password] || 'password'
+  	remember_me = options[:remember_me] || '1'
+  #	if integrations_test?
+  		post login_path, session: { email: user.email, password: password, remember_me: remember_me }
+ # 	end
+  	# Not sure why this else is needed, but I guess I will uncomment when I find out
+  	# else
+  	# 	session[:user_id] = user.id
+  	# end
+  end
 end

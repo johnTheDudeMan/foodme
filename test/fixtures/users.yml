@@ -1,5 +1,5 @@
 baci:
   name: Baci
   email: meow@purr.com
-  password_digest: "foobar"
+  password_digest: <%= User.digest('password') %>
   admin: true
