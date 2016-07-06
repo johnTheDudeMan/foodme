@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+	attr_accessor :remember_token
 	before_save :downcase_email
 	validates :name, presence: true, length: { maximum: 40 }
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -13,6 +14,28 @@ class User < ActiveRecord::Base
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
 	end
+
+	def User.new_token
+		SecureRandom.urlsafe_base64
+	end
+
+	def remember
+		# change @ to self when you figure out what the differnece is
+		@remember_token = User.new_token
+		update_attribute(:remember_digest, User.digest(@remember_token))
+	end
+
+	def forget
+		update_attribute(:remember_digest, nil)
+	end
+
+	def authenticated?(attribute, token)
+		digest = send("#{attribute}_digest")
+		return false if digest.nil?
+		BCrypt::Password.new(digest).is_password?(token)
+	end
+
+
 
 	private
 

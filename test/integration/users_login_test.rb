@@ -16,10 +16,42 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 	  assert flash.empty?
 	end
 
-	test "login with valid information" do
+	test "login with valid information then logout" do
 	  get login_path
+	  assert_select "#session_remember_me" do
+	  	assert_select "[value=?]", "1"
+	  end
 	  log_in_as @user
 	  assert_redirected_to root_url
 	  follow_redirect!
+	  assert_template 'static_pages/home'
+	  assert is_logged_in?
+	  assert_select "a[href=?]", login_path, count: 0
+	  assert_select "a[href=?]", logout_path
+	  assert_select "a[href=?]", user_path(@user)
+	  assert_select "a[href=?]", edit_user_path(@user)
+	  delete logout_path
+	  assert_redirected_to root_url
+	  follow_redirect!
+	  assert_select "a[href=?]", login_path
+	  assert_select "a[href=?]", logout_path, count: 0
+	  assert_not is_logged_in?
+	  # Logout from 2nd browser
+	  delete logout_path
+	  assert_redirected_to root_url
+	  follow_redirect!
+	  assert_select "a[href=?]", login_path
 	end
+
+	test "log in with remember me" do
+		# default in test helper is remember_me = '1'
+	  log_in_as(@user)
+	  assert_not_nil cookies['remember_token']
+	end
+
+	test "log in without remember me" do
+	  log_in_as(@user, remember_me: '0')
+	  assert_nil cookies['remember_token']
+	end
+
 end
