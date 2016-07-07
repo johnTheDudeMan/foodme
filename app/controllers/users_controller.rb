@@ -7,9 +7,9 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(user_params)
   	if @user.save
-      flash[:success] = "Hello #{@user.name}, welcome to FOODme!"
-      log_in(@user)
-  		redirect_to @user
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account. It may take 1 minute to receive the email."
+      redirect_to root_url
   	else
   		render 'new'
   	end

@@ -4,6 +4,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
 	def setup
 		@user = users(:baci)
+		@non_activated_user = users(:hotdog)
 	end
 
 	test "login with invalid information" do
@@ -14,6 +15,17 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 	  assert_not flash.empty?
 	  get root_path
 	  assert flash.empty?
+	end
+
+	test "login without activation" do
+	  get login_path
+	  log_in_as @non_activated_user
+	  assert_redirected_to root_url
+	  follow_redirect!
+	  assert_not flash.empty?
+	  assert_select 'div.alert-warning'
+	  assert_select 'div.jumbotron'
+	  assert_not is_logged_in?
 	end
 
 	test "login with valid information then logout" do

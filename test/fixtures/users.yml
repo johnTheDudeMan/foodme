@@ -3,3 +3,13 @@ baci:
   email: meow@purr.com
   password_digest: <%= User.digest('password') %>
   admin: true
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+hotdog:
+  name: Hotdog
+  email: hotdog@purr.com
+  password_digest: <%= User.digest('password') %>
+  admin: false
+  activated: false
+  activated_at: nil
