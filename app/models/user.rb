@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-	attr_accessor :remember_token, :activation_token
+	attr_accessor :remember_token, :activation_token, :pw_reset_token
 	before_save :downcase_email
 	before_create :create_activation_token
 	validates :name, presence: true, length: { maximum: 40 }
@@ -44,6 +44,18 @@ class User < ActiveRecord::Base
 		update_columns(activated: true, activated_at: Time.zone.now)
   end
 
+  def create_password_reset_digest
+  	@pw_reset_token = User.new_token
+  	update_columns(pw_reset_digest: User.digest(@pw_reset_token), pw_reset_sent_at: Time.zone.now)
+  end
+
+  def send_password_reset_email
+  	UserMailer.password_reset(self).deliver_now
+  end
+
+  def password_reset_expired?
+  	pw_reset_sent_at < 2.hours.ago
+  end
 
 
 	private
