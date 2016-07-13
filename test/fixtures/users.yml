@@ -11,5 +11,14 @@ hotdog:
   email: hotdog@purr.com
   password_digest: <%= User.digest('password') %>
   admin: false
-  activated: false
-  activated_at: nil
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+<% 33.times do |user| %>
+user_<%= user %>:
+  name: <%= "FOODster-#{user}" %>
+  email: <%= "email_#{user}@example.com" %>
+  password_digest: <%= 'password' %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+<% end %>

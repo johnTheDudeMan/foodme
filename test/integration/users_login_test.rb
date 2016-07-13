@@ -4,7 +4,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
 	def setup
 		@user = users(:baci)
-		@non_activated_user = users(:hotdog)
+		@other_user = users(:hotdog)
 	end
 
 	test "login with invalid information" do
@@ -19,12 +19,10 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
 	test "login without activation" do
 	  get login_path
-	  log_in_as @non_activated_user
+	  @other_user.update_attribute(:activated, false)
+	  log_in_as @other_user
 	  assert_redirected_to root_url
-	  follow_redirect!
 	  assert_not flash.empty?
-	  assert_select 'div.alert-warning'
-	  assert_select 'div.jumbotron'
 	  assert_not is_logged_in?
 	end
 
@@ -64,6 +62,15 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 	test "log in without remember me" do
 	  log_in_as(@user, remember_me: '0')
 	  assert_nil cookies['remember_token']
+	end
+
+	test "friendly forwarding" do
+	  get edit_user_path @user
+	  assert_not_nil session[:forwarding_url]
+	  assert_redirected_to login_path
+	  log_in_as @user
+	  delete logout_path
+	  assert_nil session[:forwarding_url]
 	end
 
 end

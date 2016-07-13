@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
         log_in(user)
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
     		flash[:success] = "Welcome back, #{user.name}."
-        redirect_to root_path
+        redirect_back_or root_url
       else
         flash[:warning] = "Account not activated. Check your email for activation link"
         redirect_to root_url

@@ -12,6 +12,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 # Allows you to create an interactive Ruby session in your browser
 # Access an IRB console on exception pages or by using <%= console %> in views  
 gem 'web-console', group: :development

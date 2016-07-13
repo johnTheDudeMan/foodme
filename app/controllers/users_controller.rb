@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :logged_in_user, only: [:show, :index, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: :destroy
 
   def new
   	@user = User.new
@@ -16,6 +19,7 @@ class UsersController < ApplicationController
   end
 
   def index
+    @users = User.where(activated: true).paginate(page: params[:page])
   end
 
   def show
@@ -25,7 +29,21 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def update
+    if @user.update_attributes(user_params)
+      flash[:success] = "Your account settings were successfully updated."
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
 
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    flash[:success] = "#{user.name} was deleted!"
+    redirect_to users_url
+  end
 
 
   private
@@ -33,5 +51,14 @@ class UsersController < ApplicationController
   	def user_params
   		params.require(:user).permit(:name, :email, :password, :password_confirmation)
   	end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to root_url unless current_user?(@user)
+    end
+
+    def admin_user
+      redirect_to root_url unless current_user.admin?
+    end
 
 end
