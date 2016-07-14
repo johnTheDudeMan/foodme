@@ -1,0 +1,15 @@
+<aside class="col-md-3">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h5><%= @user.name %></h5>
+			<% if @user.avatar? %>
+				<%= image_tag(@user.avatar_url, class: "avatar-profile") %>
+			<% else %>
+				<%= image_tag("sample_avatars/avatar_#{rand(1..20)}.png", class: "avatar-profile-default") %>
+			<% end %>
+			<p><%= @user.blurb %></p>
+			<p><strong>email:</strong><%= @user.email %></p>
+			<p><strong>created: </strong> <%= time_ago_in_words(@user.created_at) %> ago</p>
+		</div>
+	</div>
+</aside>

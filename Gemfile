@@ -14,6 +14,10 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog'
+gem 'file_validators'
 # Allows you to create an interactive Ruby session in your browser
 # Access an IRB console on exception pages or by using <%= console %> in views  
 gem 'web-console', group: :development

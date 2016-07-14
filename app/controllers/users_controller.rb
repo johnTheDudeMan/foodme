@@ -14,6 +14,7 @@ class UsersController < ApplicationController
       flash[:info] = "Please check your email to activate your account. It may take 1 minute to receive the email."
       redirect_to root_url
   	else
+      @user.avatar = @user.avatar.retrieve_from_store!(@user.avatar.identifier)
   		render 'new'
   	end
   end
@@ -49,7 +50,7 @@ class UsersController < ApplicationController
   private
 
   	def user_params
-  		params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  		params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :blurb)
   	end
 
     def correct_user

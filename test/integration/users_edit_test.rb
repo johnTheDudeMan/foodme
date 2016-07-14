@@ -29,4 +29,17 @@ class UsersEditTestTest < ActionDispatch::IntegrationTest
     assert_select "div.alert-success"
   end
 
+  test "upload avatar and blurb to profile" do
+    log_in_as @user
+    get edit_user_path @user
+    assert_select 'input[type="file"]'
+    assert_equal @user.avatar?, false
+    blurb = "Pizza Friday is my fav."
+    avatar = fixture_file_upload('test/fixtures/avatar.png', 'image/png')
+    patch user_path @user, params: { user: { avatar: avatar, blurb: blurb }}
+    @user.reload
+    assert_equal blurb, @user.blurb
+    assert_not @user.avatar?, false
+  end
+
 end

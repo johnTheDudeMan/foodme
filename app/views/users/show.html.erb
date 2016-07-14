@@ -1,6 +1,8 @@
 <% provide(:title, @user.name) %>
-<div class="container">
-	<h1><%= @user.name %></h1>
-	<p><strong>email: </strong> <%= @user.email %></p>
-	<p><strong>created: </strong> <%= time_ago_in_words(@user.created_at) %></p>
+<div class="row">
+	<%= render "profile_panel" %>
+	<div class="col-md-8">
+		<h2>Recent Activity</h2>
+		<p>Activity will go here</p>
+	</div>
 </div>

@@ -100,7 +100,7 @@ footer {
 
 
 /* forms */
-input {
+input, textarea {
   margin-bottom: 15px;
   @include box-sizing;
 }
@@ -121,4 +121,9 @@ input {
 #error_message {
   color: red;
   margin-bottom: 30px;
+}
+
+/* User Profile */
+aside {
+  margin-top: 20px;
 }
