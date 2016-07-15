@@ -8,11 +8,6 @@ CarrierWave.configure do |config|
 	    :aws_secret_access_key => ENV['S3_SECRET_KEY']
     }
     config.fog_directory     =  ENV['S3_BUCKET']
-  elsif Rails.env.test?
-  	config.storage = :file
-  	config.enable_processing = false
-  elsif Rails.env.development?
-  	config.storage = :file
 	end
 end
 
