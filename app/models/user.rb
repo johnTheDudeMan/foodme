@@ -1,4 +1,5 @@
 # To do: if editing email address, confirm with activation before saving
+# To do: figure out how to cleare carrierwave cache
 
 class User < ActiveRecord::Base
 	attr_accessor :remember_token, :activation_token, :pw_reset_token
@@ -73,4 +74,5 @@ class User < ActiveRecord::Base
 			@activation_token = User.new_token
 			self.activation_digest = User.digest(@activation_token)
 		end
+
 end
