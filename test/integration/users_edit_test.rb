@@ -3,15 +3,15 @@ require 'test_helper'
 class UsersEditTestTest < ActionDispatch::IntegrationTest
   
   def setup
-  	@user = users(:baci)
+    @user = users(:baci)
   end
 
   test "unsuccessful user edit" do
-  	log_in_as @user
+    log_in_as @user
     get edit_user_path @user
     assert_template 'users/edit'
     patch user_path @user, params: { user: { name: "", email: "not@valid.email",
-    																				 password: "foo", password_confirmation: "bar" }}
+                                             password: "foo", password_confirmation: "bar" }}
     assert_template 'users/edit'
     assert_select "div.alert-danger"
   end

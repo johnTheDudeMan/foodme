@@ -1,0 +1,13 @@
+<div class="row">
+	<%= render "kitchens/ingredients_form" %>
+</div>
+<div class="row">
+	<div class="kitchen_list">
+		<h3>Kitchen Inventory</h3>
+		<ul>
+		<% @kitchen.kitchen_ingredients.each do |e| %>
+			<li><%= e.ingredient.name + " | " + e.qty.to_s %></li>
+		<% end %>
+		</ul>
+	</div>
+</div>

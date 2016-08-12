@@ -11,7 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160714141803) do
+ActiveRecord::Schema.define(version: 20160722194723) do
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string   "name"
+    t.string   "ingredient_type"
+    t.integer  "shelf_life"
+    t.string   "store_room"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "kitchen_ingredients", force: :cascade do |t|
+    t.integer  "kitchen_id"
+    t.integer  "ingredient_id"
+    t.integer  "qty"
+    t.datetime "purchase_date", default: '2016-07-22 18:27:54'
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+  end
+
+  add_index "kitchen_ingredients", ["ingredient_id"], name: "index_kitchen_ingredients_on_ingredient_id"
+  add_index "kitchen_ingredients", ["kitchen_id"], name: "index_kitchen_ingredients_on_kitchen_id"
+
+  create_table "kitchens", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "kitchens", ["user_id"], name: "index_kitchens_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -28,8 +57,10 @@ ActiveRecord::Schema.define(version: 20160714141803) do
     t.datetime "pw_reset_sent_at"
     t.string   "avatar"
     t.text     "blurb"
+    t.integer  "kitchen_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["kitchen_id"], name: "index_users_on_kitchen_id"
 
 end
