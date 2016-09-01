@@ -3,9 +3,10 @@
 
 class User < ActiveRecord::Base
   attr_accessor :remember_token, :activation_token, :pw_reset_token
-  has_one :kitchen
+  has_one :kitchen, dependent: :destroy
   before_save :downcase_email
   before_create :create_activation_token
+  after_create :create_kitchen
   mount_uploader :avatar, AvatarUploader
   validates :name, presence: true, length: { maximum: 40 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i

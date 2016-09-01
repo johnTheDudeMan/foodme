@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722194723) do
+ActiveRecord::Schema.define(version: 20160823162754) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string   "name"
@@ -57,10 +57,8 @@ ActiveRecord::Schema.define(version: 20160722194723) do
     t.datetime "pw_reset_sent_at"
     t.string   "avatar"
     t.text     "blurb"
-    t.integer  "kitchen_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["kitchen_id"], name: "index_users_on_kitchen_id"
 
 end
